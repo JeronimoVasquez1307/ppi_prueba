@@ -87,7 +87,7 @@ if st.button("Iniciar sesión"):
     # Verifica las credenciales
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
-        st.session_state = correo
+        st.session_state.user = correo
         logged_in = True
     else:
         st.error("Usuario o contraseña incorrectos")
