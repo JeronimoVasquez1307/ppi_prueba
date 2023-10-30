@@ -110,9 +110,11 @@ st.write("<br/><br/><br/><br/>", unsafe_allow_html=True)
 st.markdown(footer_html, unsafe_allow_html=True)
 
 
-st.session_state.count = 0
+if st.session_state.count is None:
+    st.session_state.count = 0
 
 if st.session_state.count == 0:
     st.session_state.logged_in = False
 
-st.session_state.count += 1
+# Accede al atributo count de la variable de estado
+st.write(st.session_state.count.count)
