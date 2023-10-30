@@ -109,8 +109,10 @@ st.write("<br/><br/><br/><br/>", unsafe_allow_html=True)
 # Muestra el pie de página en Streamlit
 st.markdown(footer_html, unsafe_allow_html=True)
 
+if 'count' not in st.session_state:
+    st.session_state.count = 0
 
-if 'key' not in st.session_state:
-    st.session_state.key = 'value'
+if st.session_state.count == 0:
+    st.session_state.logged_in = False
 
-st.write(st.session_state.key)
+st.session_state.count += 1
