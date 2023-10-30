@@ -107,7 +107,7 @@ def obtener_genero_usuario(user_correo):
     # Busca el nombre del usuario correspondiente al correo
     for row in data[1:]:  # Saltar la primera fila que son encabezados
         if row[5] == user_correo:  # Suponiendo que el correo está en la sexta columna
-            return row[5]  # Suponiendo que el nombre está en la primera columna
+            return row[4]  # Suponiendo que el nombre está en la primera columna
 
     return None  # Si no se encuentra el correo en la hoja
 
