@@ -10,8 +10,6 @@ st.set_page_config(
 )
 
 def iniciar_variables():
-    if st.session_state is None:
-        st.session_state = {}
     if 'count' not in st.session_state:
         st.session_state['count'] = 0
 
