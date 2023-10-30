@@ -86,28 +86,30 @@ def validar_credenciales(user_correo, user_contrasena):
 
 
 if st.button("Iniciar sesión"):
-    st.session_state.logged_in = False
+   
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
-        st.session_state.user = correo
+        st.session_state.correo = correo
         st.session_state.logged_in = True
+        if st.session_state.logged_in:
+            nombre_usuario = obtener_nombre_usuario(correo)
+            if nombre_usuario:
+                st.write(f"Bienvenido, {nombre_usuario}")
+            
     else:
         st.error("Usuario o contraseña incorrectos")
         st.session_state.logged_in = False
 
-if st.session_state.logged_in:
-    if st.button("Cerrar sesión"):
-        
-        logged_in = False
-        st.session_state = None
+    # Verificar si el usuario ha iniciado sesión
 
-# Verificar si el usuario ha iniciado sesión
-if st.session_state.logged_in:
-    nombre_usuario = obtener_nombre_usuario(correo)
-    if nombre_usuario:
-        st.write(f"Bienvenido, {nombre_usuario}")
-    else:
-        st.warning("No se pudo obtener el nombre del usuario")
+
+
+if st.session_state.logged_in == True:
+    if st.button("Cerrar sesión"):
+        st.session_state.logged_in = False
+      
 else:
-    st.warning("Por favor inicia sesión")
+    st.warning("No se pudo obtener el nombre del usuario")
+
+
 
