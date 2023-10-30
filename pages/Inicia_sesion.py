@@ -91,7 +91,7 @@ if st.button("Iniciar sesión"):
         st.success("Inicio de sesión exitoso")
         st.session_state.correo = correo
         st.session_state.logged_in = True
-        if st.session_state.logged_in:
+        if st.session_state['logged_in']:
             nombre_usuario = obtener_nombre_usuario(correo)
             if nombre_usuario:
                 st.write(f"Bienvenido, {nombre_usuario}")
@@ -99,13 +99,13 @@ if st.button("Iniciar sesión"):
                  st.warning("No se pudo obtener el nombre del usuario")
     else:
         st.error("Usuario o contraseña incorrectos")
-        st.session_state.logged_in = False
+        st.session_state['logged_in'] = False
 
     # Verificar si el usuario ha iniciado sesión
 
 
 
-if st.session_state.logged_in== True:
+if st.session_state['logged_in'] == True:
     if st.button("Cerrar sesión"):
         
        st.session_state.logged_in = False
