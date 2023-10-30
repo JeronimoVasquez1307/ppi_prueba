@@ -218,11 +218,11 @@ if st.button("Iniciar sesión"):
         st.success("Inicio de sesión exitoso")
         st.session_state['correo'] = correo
         st.session_state['logged_in']  = True
-        st.session_state.nombre = obtener_nombre_usuario
-        st.session_state.apellido = obtener_apellido_usuario
-        st.session_state.generofav = obtener_genero_usuario
-        st.session_state.sexo = obtener_sexo_usuario
-        st.session_state.fecha = obtener_fecha_usuario
+        st.session_state.nombre = obtener_nombre_usuario(correo)
+        st.session_state.apellido = obtener_apellido_usuario(correo)
+        st.session_state.generofav = obtener_genero_usuario(correo)
+        st.session_state.sexo = obtener_sexo_usuario(correo)
+        st.session_state.fecha = obtener_fecha_usuario(correo)
         if st.session_state['logged_in']:
             nombre_usuario = obtener_nombre_usuario(correo)
             if nombre_usuario:
