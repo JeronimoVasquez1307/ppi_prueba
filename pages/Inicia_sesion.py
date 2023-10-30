@@ -109,7 +109,7 @@ if st.session_state['logged_in'] == True:
         st.session_state['logged_in'] = False
       
 else:
-    st.warning("No se pudo obtener el nombre del usuario")
+    st.warning("Porfavor inicia sesión")
 
 
 
