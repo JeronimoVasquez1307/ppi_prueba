@@ -109,10 +109,15 @@ st.write("<br/><br/><br/><br/>", unsafe_allow_html=True)
 # Muestra el pie de página en Streamlit
 st.markdown(footer_html, unsafe_allow_html=True)
 
+# Se crea un contador para la sesión de estado
 if 'count' not in st.session_state:
     st.session_state.count = 0
 
+# Se crea la variable logged_in si es la primera vez
+# que ingresa
 if st.session_state.count == 0:
     st.session_state.logged_in = False
 
+# Se actualiza el contador para mantener el valor
+# de logged_in entre paginas
 st.session_state.count += 1

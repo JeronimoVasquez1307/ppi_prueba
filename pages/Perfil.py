@@ -3,8 +3,11 @@ import streamlit as st
 # Título de la aplicación
 st.title("Perfil de Usuario")
 
-# Botón para mostrar el perfil del usuario
+# Se verifica si el usuario está logeado
 if st.session_state['logged_in']:
+    
+    # Si está logeado aparece el botón para mostrar perfil
+    # Se muestran las variables de estado creadas al logearse
     if st.button("Mostrar Perfil"):
         st.subheader("Perfil del Usuario")
         st.write(f"Nombre: {st.session_state.nombre}")
@@ -13,9 +16,9 @@ if st.session_state['logged_in']:
         st.write(f"Género Favorito: {st.session_state.generofav}")
         st.write(f"Correo Electrónico: {st.session_state.correo}")
         st.subheader("Juegos Calificados")
-        st.write("5")  
+        st.write("0")  
         st.subheader("Juegos Finalizados")
-        st.write("10")  
+        st.write("0")  
         st.write(f'Estado {st.session_state.logged_in}')
 
 else:

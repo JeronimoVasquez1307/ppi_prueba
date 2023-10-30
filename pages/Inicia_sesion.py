@@ -49,13 +49,15 @@ def obtener_nombre_usuario(user_correo):
 
 def obtener_apellido_usuario(user_correo):
     """
-    Obtiene el nombre de usuario correspondiente a un correo específico desde una hoja de Google Sheets.
+    Obtiene el apellido de usuario correspondiente a un correo 
+    específico desde una hoja de Google Sheets.
 
     Parámetros:
     - user_correo (str): El correo del usuario cuyo nombre se desea obtener.
 
     Retorna:
-    - str: El nombre del usuario si se encuentra, o None si el correo no se encuentra en la hoja.
+    - str: El apellido del usuario si se encuentra, o None si el correo no se 
+    encuentra en la hoja.
     """
 
     # Configuración de autenticación y acceso a Google Sheets
@@ -81,13 +83,15 @@ def obtener_apellido_usuario(user_correo):
 
 def obtener_genero_usuario(user_correo):
     """
-    Obtiene el nombre de usuario correspondiente a un correo específico desde una hoja de Google Sheets.
+    Obtiene el genero favorito de usuario correspondiente a un correo 
+    específico desde una hoja de Google Sheets.
 
     Parámetros:
     - user_correo (str): El correo del usuario cuyo nombre se desea obtener.
 
     Retorna:
-    - str: El nombre del usuario si se encuentra, o None si el correo no se encuentra en la hoja.
+    - str: El genero favorito del usuario si se encuentra, o None si el correo
+      no se encuentra en la hoja.
     """
 
     # Configuración de autenticación y acceso a Google Sheets
@@ -113,13 +117,15 @@ def obtener_genero_usuario(user_correo):
 
 def obtener_fecha_usuario(user_correo):
     """
-    Obtiene el nombre de usuario correspondiente a un correo específico desde una hoja de Google Sheets.
+    Obtiene la fecha de nacimiento de usuario correspondiente a un correo 
+    específico desde una hoja de Google Sheets.
 
     Parámetros:
     - user_correo (str): El correo del usuario cuyo nombre se desea obtener.
 
     Retorna:
-    - str: El nombre del usuario si se encuentra, o None si el correo no se encuentra en la hoja.
+    - str: La fecha de nacimiento del usuario si se encuentra, o None si el 
+    correo no se encuentra en la hoja.
     """
 
     # Configuración de autenticación y acceso a Google Sheets
@@ -145,13 +151,15 @@ def obtener_fecha_usuario(user_correo):
 
 def obtener_sexo_usuario(user_correo):
     """
-    Obtiene el nombre de usuario correspondiente a un correo específico desde una hoja de Google Sheets.
+    Obtiene el sexo del usuario correspondiente a un correo específico 
+    desde una hoja de Google Sheets.
 
     Parámetros:
     - user_correo (str): El correo del usuario cuyo nombre se desea obtener.
 
     Retorna:
-    - str: El nombre del usuario si se encuentra, o None si el correo no se encuentra en la hoja.
+    - str: El sexo del usuario si se encuentra, o None si el correo no se 
+    encuentra en la hoja.
     """
 
     # Configuración de autenticación y acceso a Google Sheets
@@ -208,14 +216,17 @@ def validar_credenciales(user_correo, user_contrasena):
 
     return False  # Credenciales inválidas
 
-# Variable para controlar si el usuario ha iniciado sesión
 
 
 
+# Botón para iniciar sesión
 if st.button("Iniciar sesión"):
    
+   # Se llama la función para validar las credenciales ingresadas
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
+        
+        # Se crean las variables de sesión de estado para el usuario
         st.session_state['correo'] = correo
         st.session_state['logged_in']  = True
         st.session_state.nombre = obtener_nombre_usuario(correo)
@@ -223,6 +234,8 @@ if st.button("Iniciar sesión"):
         st.session_state.generofav = obtener_genero_usuario(correo)
         st.session_state.sexo = obtener_sexo_usuario(correo)
         st.session_state.fecha = obtener_fecha_usuario(correo)
+        
+        # Se obtiene el nombre de usuario para saludarlo
         if st.session_state['logged_in']:
             nombre_usuario = obtener_nombre_usuario(correo)
             if nombre_usuario:
@@ -233,14 +246,15 @@ if st.button("Iniciar sesión"):
         st.error("Usuario o contraseña incorrectos")
         st.session_state['logged_in'] = False
 
-    # Verificar si el usuario ha iniciado sesión
+ 
 
 
-
+# Se verifica si el usuario está logeado para que aparezca
+# el boton de deslogeo
 if st.session_state['logged_in'] == True:
+    
     if st.button("Cerrar sesión"):
-        
-       st.session_state['logged_in']  = False
+        st.session_state['logged_in']  = False
 
 
 
