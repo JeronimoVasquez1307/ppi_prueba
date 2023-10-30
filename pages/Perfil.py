@@ -4,7 +4,7 @@ import streamlit as st
 st.title("Perfil de Usuario")
 
 # Botón para mostrar el perfil del usuario
-if st.session_state.logged_in:
+if st.session_state['logged_in']:
     if st.button("Mostrar Perfil"):
         st.subheader("Perfil del Usuario")
         st.write(f"Nombre: {st.session_state.nombre}")
