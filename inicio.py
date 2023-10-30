@@ -9,6 +9,15 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+if 'count' not in st.session_state:
+    st.session_state.count = 0
+
+if st.session_state.count == 0:
+    st.session_state.logged_in = False
+
+st.session_state.count += 1
+
+
 
 def local_css(file_name):
     """Define la función local_css."""
