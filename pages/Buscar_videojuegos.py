@@ -1,10 +1,9 @@
 from inicio import local_css
 import streamlit as st
 import requests
-from Inicia_sesion import logged_in
 import streamlit as st
 import requests
-
+from streamlit import session_state
 # Configura el título y el favicon de la página
 st.set_page_config(
     page_title="Gamer's Companion 🎮",
@@ -66,6 +65,7 @@ if game_name:
         col2.write(f"**Desarrollador:** {game_info[0]['involved_companies'][0]['company']['name']}" if 'involved_companies' in game_info[0] and game_info[0]['involved_companies'] else "Desarrollador no disponible")
         col2.write(f"**Plataformas:** {', '.join([platform['name'] for platform in game_info[0]['platforms']])}" if 'platforms' in game_info[0] and game_info[0]['platforms'] else "Plataformas no disponibles")
         
+        logged_in = session_state.get("logged_in")
         if logged_in:
             new_rating = st.selectbox("Calificar este juego:", options=[0, 1, 2, 3, 4, 5])
             st.write(f"Has calificado {game_info[0]['name']} con {new_rating} ★")

@@ -5,6 +5,7 @@ además de manejar el cierre de sesión"""
 import streamlit as st # pip install streamlit
 import gspread # pip install gspread
 # pip install oauth2cliente
+from streamlit import session_state
 from oauth2client.service_account import ServiceAccountCredentials
 
 # Título de la aplicación
@@ -82,13 +83,14 @@ def validar_credenciales(user_correo, user_contrasena):
 
 # Variable para controlar si el usuario ha iniciado sesión
 logged_in = False
+session_state("logged_in", logged_in)
 
 if st.button("Iniciar sesión"):
     # Verifica las credenciales
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
         st.session_state.user = correo
-        logged_in = True
+        session_state("logged_in", True)
     else:
         st.error("Usuario o contraseña incorrectos")
 
