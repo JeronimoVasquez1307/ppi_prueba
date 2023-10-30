@@ -15,3 +15,4 @@ if st.button("Mostrar Perfil"):
     st.write("5")  
     st.subheader("Juegos Finalizados")
     st.write("10")  
+    st.write(f'Estado {st.session_state["logged_in"]}')
