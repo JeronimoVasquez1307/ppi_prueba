@@ -83,7 +83,7 @@ def validar_credenciales(user_correo, user_contrasena):
 
 # Variable para controlar si el usuario ha iniciado sesión
 
-logged_in = session_state.get("logged_in", False)
+st.session_state.logged_in = False
 
 if st.button("Iniciar sesión"):
     # Verifica las credenciales
