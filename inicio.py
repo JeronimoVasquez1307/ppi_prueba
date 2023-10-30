@@ -11,10 +11,10 @@ st.set_page_config(
 
 
 if 'count' not in st.session_state:
-     st.session_state.count = 0
+    st.session_state.count = 0
 
 if st.session_state.count == 0:
-        st.session_state.logged_in = False
+    st.session_state.logged_in = False
 
 st.session_state.count += 1
 
