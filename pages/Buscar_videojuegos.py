@@ -65,8 +65,8 @@ if game_name:
         col2.write(f"**Desarrollador:** {game_info[0]['involved_companies'][0]['company']['name']}" if 'involved_companies' in game_info[0] and game_info[0]['involved_companies'] else "Desarrollador no disponible")
         col2.write(f"**Plataformas:** {', '.join([platform['name'] for platform in game_info[0]['platforms']])}" if 'platforms' in game_info[0] and game_info[0]['platforms'] else "Plataformas no disponibles")
         
-        logged_in = session_state.get("logged_in")
-        if logged_in:
+        
+        if st.session_state.get("logged_in"):
             new_rating = st.selectbox("Calificar este juego:", options=[0, 1, 2, 3, 4, 5])
             st.write(f"Has calificado {game_info[0]['name']} con {new_rating} ★")
         

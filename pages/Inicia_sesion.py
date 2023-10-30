@@ -82,21 +82,22 @@ def validar_credenciales(user_correo, user_contrasena):
     return False  # Credenciales inválidas
 
 # Variable para controlar si el usuario ha iniciado sesión
-logged_in = False
-session_state("logged_in", logged_in)
+
+logged_in = session_state.get("logged_in", False)
 
 if st.button("Iniciar sesión"):
     # Verifica las credenciales
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
         st.session_state.user = correo
-        session_state("logged_in", True)
+        st.session_state.logged_in = True
     else:
         st.error("Usuario o contraseña incorrectos")
 
-if logged_in:
+if st.session_state.logged_in:
     if st.button("Cerrar sesión"):
-        logged_in = False  # Cerrar la sesión
+        
+        logged_in = False
         st.session_state = None
 
 # Verificar si el usuario ha iniciado sesión
