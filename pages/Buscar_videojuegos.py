@@ -66,7 +66,7 @@ if game_name:
         col2.write(f"**Plataformas:** {', '.join([platform['name'] for platform in game_info[0]['platforms']])}" if 'platforms' in game_info[0] and game_info[0]['platforms'] else "Plataformas no disponibles")
         
         
-        if st.session_state.logged_in:
+        if st.session_state['logged_in']:
             new_rating = st.selectbox("Calificar este juego:", options=[0, 1, 2, 3, 4, 5])
             st.write(f"Has calificado {game_info[0]['name']} con {new_rating} ★")
         
