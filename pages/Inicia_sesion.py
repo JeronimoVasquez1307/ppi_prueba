@@ -90,7 +90,7 @@ if st.button("Iniciar sesión"):
     if validar_credenciales(correo, contrasena):
         st.success("Inicio de sesión exitoso")
         st.session_state.correo = correo
-        st.session_state.logged_in = True
+        st.session_state['logged_in']  = True
         if st.session_state['logged_in']:
             nombre_usuario = obtener_nombre_usuario(correo)
             if nombre_usuario:
@@ -108,7 +108,7 @@ if st.button("Iniciar sesión"):
 if st.session_state['logged_in'] == True:
     if st.button("Cerrar sesión"):
         
-       st.session_state.logged_in = False
+       st.session_state['logged_in']  = False
 
 
 
