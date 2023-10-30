@@ -101,7 +101,7 @@ if st.session_state.logged_in:
         st.session_state = None
 
 # Verificar si el usuario ha iniciado sesión
-if logged_in:
+if st.session_state.logged_in:
     nombre_usuario = obtener_nombre_usuario(correo)
     if nombre_usuario:
         st.write(f"Bienvenido, {nombre_usuario}")
