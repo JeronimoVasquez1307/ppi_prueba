@@ -4,18 +4,10 @@ de ser la página que streamlit lee por defecto para
 mostrar al usuario la aplicación
 """
 
-
-# Importar librerias requeridas
-import json
-import requests
-import streamlit as st
-from st_clickable_images import clickable_images
-
 import json
 import requests
 import streamlit as st
 from streamlit_image_select import image_select
-
 
 # Configura el título y el favicon de la página
 st.set_page_config(
@@ -25,30 +17,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-
-
-def local_css(file_name):
-    """
-    Carga un documento css y lo renderiza en la página.
-
-    Parameters:
-    file_name: Nombre del archivo a renderizar
-
-    Returns:
-    None.
-    """
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-
-# Llama a local_css con el nombre del archivo CSS
-local_css("style.css")
-
 # Colores
 #   Morado: 6b0b9b
 #   Cyan: 21d4fd
 #   Rosa: b81c99
-
 
 # URL de la imagen del encabezado
 url_title = "https://i.imgur.com/fdBE2Vx.png"
@@ -82,35 +54,6 @@ if response.status_code == 200:
 
     # Contador para llevar un registro de cuántos juegos se han mostrado
     count = 0
-    query_params = st.experimental_get_query_params().keys()
-    if 'page' not in query_params:
-        st.experimental_set_query_params(
-       
-            page = 'main'
-        )
-
-
-    if st.experimental_get_query_params()['page'][0] == 'main':
-        image_urls = []
-        game_ids = []
-        for i, game in enumerate(games):
-            if 'cover' in game and count < 50:
-                image_url = game['cover']['url'].replace('t_thumb', 't_cover_big')
-                image_url = 'https:' + image_url
-
-                # Incrementa el contador
-                count += 1
-
-                # Añade la URL de la imagen y el ID del juego a las listas
-                image_urls.append(image_url)
-                game_ids.append(game['id'])
-
-        # Muestra las imágenes como imágenes clicables
-        clicked = clickable_images(image_urls, key='games')
-
-        # Si se hace clic en una imagen, redirige a la página de detalles del juego
-        if clicked > -1:
-            st.experimental_set_query_params(page='details', game_id=game_ids[clicked])
 
     query_params = st.experimental_get_query_params().keys()
     if 'page' not in query_params:
@@ -151,7 +94,6 @@ if response.status_code == 200:
                 page='details', game_id=game_ids[clicked_index]
                 )
 
-
     elif st.experimental_get_query_params()['page'][0] == 'details':
         game_id = st.experimental_get_query_params()['game_id'][0]
 
@@ -170,11 +112,7 @@ if response.status_code == 200:
             # Muestra el nombre del juego como título de la página
             st.title(game_info[0]['name'])
 
-
-         
-
             # Crea dos columnas para mostrar la información del juego
-
             col1, col2 = st.columns(2)
 
             # Muestra la imagen del juego en la columna de la izquierda
@@ -182,24 +120,12 @@ if response.status_code == 200:
                 image_url = ('https://images.igdb.com/igdb/image/upload/t_cover_big/'
                             + game_info[0]['cover']['url'].split('/')[-1])
                 col1.image(image_url, use_column_width=False)
-
             else:
                 st.write("Imagen no disponible")
 
             # Muestra la información del juego en la columna de la derecha
             col2.markdown(f"**Sinopsis:** {game_info[0]['summary']}")
             col2.markdown(f"**Desarrollador:** \
-
-                            {game_info[0]['involved_companies'][0]['company']['name']}")
-            col2.markdown(f"**Plataformas:** \
-                            {', '.join([platform['name'] for platform in game_info[0]['platforms']])}")
-        else:
-            st.write("Lo siento, no pude encontrar ningún juego con ese ID.")
-        
-        # Muestra un botón "Volver" que llama a la función 'volver' cuando se hace clic
-        if st.button('Volver', key='volver'):
-            st.experimental_set_query_params(page='main')
-
                 {game_info[0]['involved_companies'][0]['company']['name']}")
             col2.markdown(f"**Plataformas:** \
                 {', '.join([platform['name'] for platform in game_info[0]['platforms']])}")
@@ -210,7 +136,6 @@ if response.status_code == 200:
         # Muestra un botón "Volver" que llama a la función 'volver' cuando se hace clic
         if st.button('Volver', key='volver'):
             st.experimental_set_query_params(page='main', game_id='0')
-
             
 # Información de los desarrolladores
 developers = [
@@ -251,14 +176,6 @@ if 'count' not in st.session_state:
 if st.session_state.count == 0:
     st.session_state.logged_in = False
 
-    st.session_state.registrado = False
-
 # Se actualiza el contador para mantener el valor
 # de logged_in entre paginas
 st.session_state.count += 1
-
-
-# Se actualiza el contador para mantener el valor
-# de logged_in entre paginas
-st.session_state.count += 1
-

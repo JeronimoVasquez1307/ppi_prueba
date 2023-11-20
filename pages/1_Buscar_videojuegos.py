@@ -17,7 +17,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", sco
 client = gspread.authorize(creds)
 
 # Abrir la hoja de Google Sheets
-hoja = client.open("Usuarios_bd").get_worksheet(2)
+hoja = client.open("Usuarios_bd").get_worksheet(1)
 
 # Configura el título y el favicon de la página
 st.set_page_config(
@@ -66,6 +66,9 @@ def borrar_comentario(indice):
 url_title = "https://i.imgur.com/xqohjCG.png"
 st.markdown(f'<img src="{url_title}" alt="Encabezado" style="width: 100%;">',
             unsafe_allow_html=True)
+
+# Crea una barra de búsqueda en Streamlit
+game_name = st.text_input('Busca un videojuego')
 
 # Si se introduce un nombre de juego, busca la información del juego
 if game_name:
