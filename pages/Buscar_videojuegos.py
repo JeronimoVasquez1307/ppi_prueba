@@ -1,8 +1,6 @@
 from inicio import local_css
 import streamlit as st
 import requests
-import streamlit as st
-import requests
 from streamlit import session_state
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
