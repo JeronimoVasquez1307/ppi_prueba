@@ -63,7 +63,7 @@ if response.status_code == 200:
 
  
 
-    if st.experimental_get_query_params()['page'][0] == 'main':
+    if st.experimental_get_query_params()['page'][0] == 'main' and st.experimental_get_query_params()['game_id'][0] == '0':
         image_urls = []
         game_ids = []
         game_names = []  # Lista para almacenar los nombres de los juegos
