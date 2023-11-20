@@ -46,7 +46,6 @@ BODY = 'fields id,name,cover.url; limit 100; sort rating desc;\
         where rating > 70; where rating_count > 1000;'
 
 response = requests.post(URL, headers=HEADERS, data=BODY)
-
 query_params = st.experimental_get_query_params().keys()
 if 'page' not in query_params:
     st.experimental_set_query_params(
@@ -61,7 +60,7 @@ if response.status_code == 200:
     # Contador para llevar un registro de cuántos juegos se han mostrado
     count = 0
 
- 
+    
 
     if st.experimental_get_query_params()['page'][0] == 'main' and st.experimental_get_query_params()['game_id'][0] == '0':
         image_urls = []
@@ -90,11 +89,15 @@ if response.status_code == 200:
             use_container_width=False
         )
 
+        st.write(clicked_index)
+
         # Redirige a la página de detalles del juego
         if clicked_index:
             st.experimental_set_query_params(
                 page='details', game_id=game_ids[clicked_index]
                 )
+            st.write(st.experimental_get_query_params()['game_id'][0])
+            st.write(clicked_index)
 
     elif st.experimental_get_query_params()['page'][0] == 'details':
         game_id = st.experimental_get_query_params()['game_id'][0]
