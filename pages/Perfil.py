@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_modal import Modal
 
 # Título de la aplicación
 st.title("Perfil de Usuario")
@@ -21,5 +22,14 @@ if st.session_state['logged_in']:
         st.write("0")  
         st.write(f'Estado {st.session_state.logged_in}')
 
+
+
+   
+
 else:
     st.warning("Para ver tu perfil debes iniciar sesión")
+
+if 'openmodel' not in st.session_state:
+    st.session_state.openmodel = False
+
+

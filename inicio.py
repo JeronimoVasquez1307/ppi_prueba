@@ -170,6 +170,7 @@ if 'count' not in st.session_state:
 # que ingresa
 if st.session_state.count == 0:
     st.session_state.logged_in = False
+    st.session_state.registrado = False
 
 # Se actualiza el contador para mantener el valor
 # de logged_in entre paginas

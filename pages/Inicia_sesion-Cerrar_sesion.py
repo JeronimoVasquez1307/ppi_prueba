@@ -7,13 +7,9 @@ import gspread # pip install gspread
 # pip install oauth2cliente
 from streamlit import session_state
 from oauth2client.service_account import ServiceAccountCredentials
+import smtplib
+import email
 
-# Título de la aplicación
-st.title("Login")
-
-# Formulario de login
-correo = st.text_input("Correo")
-contrasena = st.text_input("Contraseña", type="password")
 
 def obtener_nombre_usuario(user_correo):
     """
@@ -216,45 +212,74 @@ def validar_credenciales(user_correo, user_contrasena):
 
     return False  # Credenciales inválidas
 
+def recuperarContraseña(user_correo):
+
+    # Configuración de autenticación y acceso a Google Sheets
+    scope = [
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/drive.file"
+    ]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    cliente = gspread.authorize(creds)
+    hoja = cliente.open("Usuarios_bd").sheet1
+
+    # Obtiene todos los datos de la hoja
+    data = hoja.get_all_values()
+
+    # Recorre los datos y verifica las credenciales
+    for row in data[1:]:  # Saltar la primera fila que son encabezados
+        if row[5] == user_correo:  # Suponiendo que el correo está en la sexta columna y la contraseña en la séptima
+            return row[6]  
 
 
 
-# Botón para iniciar sesión
-if st.button("Iniciar sesión"):
-   
-   # Se llama la función para validar las credenciales ingresadas
-    if validar_credenciales(correo, contrasena):
-        st.success("Inicio de sesión exitoso")
-        
-        # Se crean las variables de sesión de estado para el usuario
-        st.session_state['correo'] = correo
-        st.session_state['logged_in']  = True
-        st.session_state.nombre = obtener_nombre_usuario(correo)
-        st.session_state.apellido = obtener_apellido_usuario(correo)
-        st.session_state.generofav = obtener_genero_usuario(correo)
-        st.session_state.sexo = obtener_sexo_usuario(correo)
-        st.session_state.fecha = obtener_fecha_usuario(correo)
-        
-        # Se obtiene el nombre de usuario para saludarlo
-        if st.session_state['logged_in']:
-            nombre_usuario = obtener_nombre_usuario(correo)
-            if nombre_usuario:
-                st.write(f"Bienvenido, {nombre_usuario}")
-            else:
-                 st.warning("No se pudo obtener el nombre del usuario")
-    else:
-        st.error("Usuario o contraseña incorrectos")
-        st.session_state['logged_in'] = False
+if st.session_state['logged_in'] == False:
+
+    # Título de la aplicación
+    st.title("Login")
+
+    # Formulario de login
+    correo = st.text_input("Correo")
+    contrasena = st.text_input("Contraseña", type="password")
+    # Botón para iniciar sesión
+    if st.button("Iniciar sesión"):
+    
+    # Se llama la función para validar las credenciales ingresadas
+        if validar_credenciales(correo, contrasena):
+            st.success("Inicio de sesión exitoso")
+            
+            # Se crean las variables de sesión de estado para el usuario
+            st.session_state['correo'] = correo
+            st.session_state['logged_in']  = True
+            st.session_state.nombre = obtener_nombre_usuario(correo)
+            st.session_state.apellido = obtener_apellido_usuario(correo)
+            st.session_state.generofav = obtener_genero_usuario(correo)
+            st.session_state.sexo = obtener_sexo_usuario(correo)
+            st.session_state.fecha = obtener_fecha_usuario(correo)
+            
+            # Se obtiene el nombre de usuario para saludarlo
+            if st.session_state['logged_in']:
+                nombre_usuario = obtener_nombre_usuario(correo)
+                if nombre_usuario:
+                    st.write(f"Bienvenido, {nombre_usuario}")
+                else:
+                    st.warning("No se pudo obtener el nombre del usuario")
+        else:
+            st.error("Usuario o contraseña incorrectos")
+            st.session_state['logged_in'] = False
+
+elif st.session_state['logged_in']:
+     # Título de la aplicación
+    st.title("Log-out")
+    if st.button("Cerrar sesión"):
+        st.session_state['logged_in']  = False  
 
  
 
 
-# Se verifica si el usuario está logeado para que aparezca
-# el boton de deslogeo
-if st.session_state['logged_in'] == True:
-    
-    if st.button("Cerrar sesión"):
-        st.session_state['logged_in']  = False
+
 
 
 
