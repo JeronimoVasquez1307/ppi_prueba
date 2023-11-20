@@ -47,6 +47,12 @@ BODY = 'fields id,name,cover.url; limit 100; sort rating desc;\
 
 response = requests.post(URL, headers=HEADERS, data=BODY)
 
+query_params = st.experimental_get_query_params().keys()
+if 'page' not in query_params:
+    st.experimental_set_query_params(
+        page='main', game_id = '0'
+    )
+
 # Comprueba si la solicitud fue exitosa
 if response.status_code == 200:
     # Convierte la respuesta en JSON
@@ -55,11 +61,7 @@ if response.status_code == 200:
     # Contador para llevar un registro de cuántos juegos se han mostrado
     count = 0
 
-    query_params = st.experimental_get_query_params().keys()
-    if 'page' not in query_params:
-        st.experimental_set_query_params(
-            page='main'
-        )
+ 
 
     if st.experimental_get_query_params()['page'][0] == 'main':
         image_urls = []
@@ -89,7 +91,7 @@ if response.status_code == 200:
         )
 
         # Redirige a la página de detalles del juego
-        if clicked_index is not None:
+        if clicked_index:
             st.experimental_set_query_params(
                 page='details', game_id=game_ids[clicked_index]
                 )
